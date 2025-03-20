@@ -1,5 +1,7 @@
 import pandas as pd
 from io import StringIO
+from sklearn.impute import SimpleImputer
+import numpy as np
 
 csv_data = \
     '''A, B, C, D
@@ -8,4 +10,8 @@ csv_data = \
     10.0, 11.0, 12.0,'''
 
 df = pd.read_csv(StringIO(csv_data))
-print(df.dropna(axis=1))
+
+imr = SimpleImputer(missing_values=np.nan, strategy="mean")
+newData = imr.fit_transform(df.values)
+
+print(newData)
